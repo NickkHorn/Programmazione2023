@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/*
+Scrivere un programma che stampi tutti i divisori primi di un numero intero richiesto
+all’utente.
+*/
+
 bool primo(long int n) {
     for (long int i = 2; i*i <= n; i++)
         if (n%i == 0) 

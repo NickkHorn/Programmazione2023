@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*
+Scrivere un programma che stampi tutti i divisori di un numero intero richiesto all’utente.
+*/
+
 int main() {
     int n;
     printf("Inserisci un numero: ");

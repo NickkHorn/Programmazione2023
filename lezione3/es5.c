@@ -1,6 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*
+Stampare a video tutte le terne pitagoriche in cui l’ipotenusa è minore o uguale a un
+numero richesto all’utente.
+Stampare anche il numero di terne testate.
+*/
+
 int main() {
     int ip_max;
     printf("Inserisci il valore massimo dell'ipotenusa: ");

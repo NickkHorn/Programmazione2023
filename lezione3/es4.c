@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/*
+Scrivere un programma che scriva in uscita la fattorizzazione in numeri primi del
+numero ricevuto in ingresso.
+Ad esempio: se riceve 60, dovrà scrivere (in qualche formato) 22 ˆ 3 ˆ 5.
+*/
+
 int main() {
     int n;
     printf("Inserire un numero: ");

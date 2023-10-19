@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+// Scrivere un programma che determini se un numero inserito dall'utente è primo
+
 int main() {
     int n;
     printf("Inserisci un numero: ");
