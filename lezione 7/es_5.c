@@ -19,6 +19,11 @@ typedef struct {
     int num, den;
 } Frazione;
 
+typedef struct {
+    Frazione fraz1, fraz2;
+    char operatore;
+} Operazione;
+
 void semplifica(Frazione *fraz) {
     bool found = true;    
     while (found) {
@@ -39,15 +44,14 @@ void creaFrazione(Frazione *dest, int num, int den) {
         printf("Errore: una frazione non può avere denominatore pari a 0!");
         exit(1);
     }
-    
+
     dest->num = num;
     dest->den = den;
     semplifica(dest);
 }
 
 void otteniDaInput(Frazione *fraz) {
-    printf("Inserisci il numeratore e il denomatore (num den): ");
-    scanf("%d %d", &fraz->num, &fraz->den);
+    scanf("%d/%d", &fraz->num, &fraz->den);
     if (fraz->den == 0) {
         printf("Errore: Il denominatore non può essere 0!");
         exit(1);
@@ -92,36 +96,39 @@ void divisione(Frazione *dest, Frazione fraz1, Frazione fraz2) {
     semplifica(dest);
 }
 
-int main(void) {
-    Frazione fraz1, fraz2; 
-    printf("Prima frazione:\n\t");
-    otteniDaInput(&fraz1);
-    printf("Seconda frazione:\n\t");
-    otteniDaInput(&fraz2);
-
-    printf("Operazioni possibili:\n\t1 - Somma\n\t2 - Differenza\n\t3 - Moltiplicazione\n\t4 - Divisione\nInserire il numero dell'operazione desiderata: ");
-    int op;
-    scanf("%d", &op);
-    
+Frazione esegui(Operazione op) {
     Frazione res;
-    switch (op) {
-        case 1:
-            somma(&res, fraz1, fraz2);
+    switch (op.operatore) {
+        case '+':
+            somma(&res, op.fraz1, op.fraz2);
         break;
-        case 2:
-            differenza(&res, fraz1, fraz2);
+        case '-':
+            differenza(&res, op.fraz1, op.fraz2);
         break;
-        case 3:
-            moltiplicazione(&res, fraz1, fraz2);
+        case '*':
+            moltiplicazione(&res, op.fraz1, op.fraz2);
         break;
-        case 4:
-            divisione(&res, fraz1, fraz2);
+        case '/':
+            divisione(&res, op.fraz1, op.fraz2);
         break;
         default:
             printf("Indice di operazione non valido!");
             exit(1);
         break;
     }
+    return res;
+}
+
+int main(void) {
+    Frazione fraz1, fraz2;
+    char operatore; 
+    otteniDaInput(&fraz1);
+    scanf("%c", &operatore);
+    otteniDaInput(&fraz2);
+    
+    Operazione op = {fraz1, fraz2, operatore};
+
+    Frazione res = esegui(op);
     printf("Frazionario: ");
     stampaFrazionario(&res);
     printf("Valore: ");

@@ -4,6 +4,17 @@
 
 #define min(a,b) ((a<=b)?a:b)
 
+int MCM(int a, int b) {
+    int _min = min(a,b);
+    int _max = a+b-_min;
+    int mult = 1; // moltiplicatore
+    // mult*_min sarà sicuramente un moltiplicatore di _min essendo mult intero, perché sia minimo comune multiplo
+    // devo solo controllare se è anche un multiplo di _max
+    while ((mult*_min)%_max != 0)
+        mult++;
+    return _min*mult;
+}
+
 typedef struct {
     int num, den;
 } Frazione;
@@ -47,12 +58,14 @@ void stampaDecimale(Frazione fraz) {
 }
 
 Frazione somma(Frazione fraz1, Frazione fraz2) {
-    Frazione res = {fraz1.num+fraz2.num, fraz1.den+fraz2.den};
+    int nuovo_den = MCM(fraz1.den, fraz2.den);
+    Frazione res = {fraz1.num*(nuovo_den/fraz1.den)+fraz2.num*(nuovo_den/fraz2.den), nuovo_den};
     return semplifica(res);
 }
 
 Frazione differenza(Frazione fraz1, Frazione fraz2) {
-    Frazione res = {fraz1.num-fraz2.num, fraz1.den-fraz2.den};
+    int nuovo_den = MCM(fraz1.den, fraz2.den);
+    Frazione res = {fraz1.num*(nuovo_den/fraz1.den)-fraz2.num*(nuovo_den/fraz2.den), nuovo_den};
     return semplifica(res);
 }
 
@@ -99,6 +112,5 @@ int main(void) {
     stampaFrazionario(res);
     printf("Valore: ");
     stampaDecimale(res);
-
     return 0;
 }
